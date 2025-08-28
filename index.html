@@ -1,0 +1,1148 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   InfoMedia | Digital Marketing Agency
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            color: #1a202c;
+            overflow-x: hidden;
+            cursor: none;
+        }
+        @media (hover: none) and (pointer: coarse) {
+            body {
+                cursor: auto;
+            }
+            .cursor {
+                display: none !important;
+            }
+        }
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .content-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            padding: 4rem 1rem;
+        }
+        #home.content-section {
+            padding-top: 8rem;
+        }
+        .section-content {
+            width: 100%;
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        @media (min-width: 768px) {
+            .section-content {
+                padding: 2.5rem;
+            }
+        }
+        #splash-screen {
+            transition: opacity 1s ease-in-out;
+        }
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #1a202c;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s, transform 0.1s linear;
+        }
+        .cursor-grow {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(29, 78, 216, 0.3);
+            border-color: transparent;
+        }
+        @keyframes icon-pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(10deg); }
+        }
+        .animated-icon {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+            animation: icon-pulse 3s ease-in-out infinite;
+        }
+        .gradient-icon {
+            stroke: url(#icon-gradient);
+        }
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 40;
+        }
+        .brand-logo {
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+            flex-shrink: 0;
+            width: 150px;
+            padding: 0 1rem;
+        }
+        .brand-logo:hover {
+            filter: grayscale(0%);
+        }
+        .shimmer {
+            position: relative;
+            display: inline-block;
+            color: inherit;
+            background: linear-gradient(120deg, #1a202c 20%, #3b82f6 40%, #1a202c 60%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer-text 5s linear infinite;
+        }
+        @keyframes shimmer-text {
+            to {
+                background-position: 200% center;
+            }
+        }
+        @keyframes continuous-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        @keyframes continuous-shimmer {
+            0% { transform: translateX(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) rotate(45deg); }
+        }
+        .btn-animated {
+            position: relative;
+            overflow: hidden;
+            animation: continuous-bounce 2.5s ease-in-out infinite;
+        }
+        .btn-animated:hover {
+            animation-play-state: paused;
+        }
+        .btn-animated::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 20%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0) 80%
+            );
+            opacity: 1;
+            animation: continuous-shimmer 3s linear infinite;
+        }
+        .interactive-bounce {
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .interactive-bounce:hover {
+            transform: translateY(-4px) scale(1.05);
+        }
+        .interactive-bounce:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+        .marquee {
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+        }
+        .marquee-content {
+            display: inline-flex;
+            animation: marquee 30s linear infinite;
+        }
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        @keyframes hero-image-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .hero-image-animated {
+            animation: hero-image-bounce 4s ease-in-out infinite;
+        }
+  </style>
+ </head>
+ <body class="w-full">
+  <svg height="0" style="position:absolute" width="0">
+   <defs>
+    <lineargradient id="icon-gradient" x1="0%" x2="100%" y1="0%" y2="100%">
+     <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1">
+     </stop>
+     <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1">
+     </stop>
+    </lineargradient>
+   </defs>
+  </svg>
+  <div class="cursor">
+  </div>
+  <canvas id="bg-canvas">
+  </canvas>
+  <div class="fixed inset-0 bg-white flex justify-center items-center z-50" id="splash-screen">
+   <canvas height="150" id="splash-canvas" width="300">
+   </canvas>
+  </div>
+  <nav class="fixed top-4 left-1/2 -translate-x-1/2 w-11/12 max-w-5xl z-40 bg-white/50 backdrop-blur-md shadow-lg rounded-full border border-white/20 transition-opacity duration-1000 opacity-0" id="navbar">
+   <div class="w-full mx-auto px-4 sm:px-6">
+    <div class="flex justify-between items-center h-16">
+     <a class="flex items-center gap-2 text-xl font-bold text-gray-900 flex-shrink-0 interactive-bounce" href="#home">
+      <img alt="InfoMedia Logo, blue circle with white IM letters" class="h-8 w-8 rounded-full" height="40" src="https://storage.googleapis.com/a1aa/image/cb15d369-6167-491e-72a7-e42c98fc0911.jpg" width="40"/>
+      <span>
+       INFOMEDIA
+      </span>
+     </a>
+     <div class="hidden md:flex items-center gap-6">
+      <a class="text-gray-700 hover:text-blue-500 interactive-bounce" href="#services">
+       Services
+      </a>
+      <a class="text-gray-700 hover:text-blue-500 interactive-bounce" href="#about">
+       About Us
+      </a>
+      <a class="text-gray-700 hover:text-blue-500 interactive-bounce" href="#why">
+       Why Us
+      </a>
+      <a class="text-gray-700 hover:text-blue-500 interactive-bounce" href="#contact">
+       Contact
+      </a>
+     </div>
+     <a class="btn-animated interactive-bounce hidden md:block px-5 py-2 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-600 transition-colors whitespace-nowrap" href="#contact">
+      Get in Touch
+     </a>
+     <div class="md:hidden">
+      <button aria-label="Toggle mobile menu" class="text-gray-800 hover:text-blue-500 focus:outline-none" id="mobile-menu-button">
+       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 6h16M4 12h16m-7 6h7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        </path>
+       </svg>
+      </button>
+     </div>
+    </div>
+   </div>
+   <div class="hidden md:hidden bg-white/80 backdrop-blur-md rounded-b-2xl py-4" id="mobile-menu">
+    <a class="block text-center py-2 text-gray-700 hover:text-blue-500" href="#services">
+     Services
+    </a>
+    <a class="block text-center py-2 text-gray-700 hover:text-blue-500" href="#about">
+     About Us
+    </a>
+    <a class="block text-center py-2 text-gray-700 hover:text-blue-500" href="#why">
+     Why Us
+    </a>
+    <a class="block text-center py-2 text-gray-700 hover:text-blue-500" href="#contact">
+     Contact
+    </a>
+   </div>
+  </nav>
+  <a aria-label="Contact us" class="fab btn-animated bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition-colors interactive-bounce" href="#contact">
+   <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+    </path>
+   </svg>
+  </a>
+  <main class="opacity-0 transition-opacity duration-1000" id="content">
+   <section class="content-section" id="home">
+    <div class="section-content">
+     <div class="grid md:grid-cols-2 gap-8 items-center text-center md:text-left">
+      <div>
+       <h1 class="text-4xl md:text-6xl font-bold text-gray-900">
+        Welcome To
+        <span class="shimmer">
+         INFOMEDIA
+        </span>
+       </h1>
+       <p class="mt-4 text-lg md:text-2xl text-gray-700">
+        One Hub. Every
+        <span class="shimmer">
+         Digital Service
+        </span>
+        You Need.
+       </p>
+       <div class="mt-8 flex flex-wrap justify-center md:justify-start items-center gap-6">
+        <a class="btn-animated interactive-bounce px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-400 transition-colors" href="#contact">
+         Get in Touch
+        </a>
+        <div class="text-gray-600">
+         <p>
+          +91 7668991470
+         </p>
+         <p>
+          info@gurumedia.com
+         </p>
+        </div>
+       </div>
+      </div>
+      <div class="hidden md:flex justify-center items-center max-h-[320px]">
+       <img alt="Digital Marketing Agency showing a creative team working on digital content with laptops and charts" class="hero-image-animated max-w-full max-h-[320px] object-contain rounded-lg" src="https://html-generator.com/uploads/images/2025/08/28/44046P_0ITCZHVI.png"/>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section class="content-section text-center" id="services">
+    <div class="section-content">
+     <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+      Our
+      <span class="shimmer">
+       Core Services
+      </span>
+     </h2>
+     <p class="mt-4 text-gray-700 max-w-2xl mx-auto">
+      We offer creative and result-driven services built for your growth. From content to code, we craft solutions that help you shine across every digital platform.
+     </p>
+     <div class="mt-8 grid md:grid-cols-3 gap-8 text-left">
+      <div class="bg-white/50 p-6 rounded-lg hover:shadow-xl transition-shadow">
+       <div class="w-full h-48 mb-4 rounded-md overflow-hidden">
+        <img alt="Social Media Marketing showing a person managing social media accounts on multiple devices" class="w-full h-full object-cover" src="https://html-generator.com/uploads/images/2025/08/28/38437IL8PIH0VPN.jpg"/>
+       </div>
+       <h3 class="text-xl font-bold mb-2">
+        Social Media Marketing
+       </h3>
+       <p class="mb-4">
+        We provide complete social media marketing services to boost your business growth.
+       </p>
+       <ul class="space-y-2">
+        <li>
+         <div class="animated-icon">
+          <svg class="gradient-icon" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <path d="M12 20h9">
+           </path>
+           <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z">
+           </path>
+          </svg>
+         </div>
+         Quality Content
+        </li>
+        <li>
+         <div class="animated-icon">
+          <svg class="gradient-icon" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2">
+           </path>
+           <circle cx="8.5" cy="7" r="4">
+           </circle>
+           <line x1="20" x2="20" y1="8" y2="14">
+           </line>
+           <line x1="23" x2="17" y1="11" y2="11">
+           </line>
+          </svg>
+         </div>
+         Leverage Influencers
+        </li>
+        <li>
+         <div class="animated-icon">
+          <svg class="gradient-icon" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <line x1="12" x2="12" y1="1" y2="23">
+           </line>
+           <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6">
+           </path>
+          </svg>
+         </div>
+         Paid Social
+        </li>
+       </ul>
+      </div>
+      <div class="bg-white/50 p-6 rounded-lg hover:shadow-xl transition-shadow">
+       <div class="w-full h-48 mb-4 rounded-md overflow-hidden">
+        <img alt="Video &amp; Thumbnails showing video editing timeline on a computer screen" class="w-full h-full object-cover" src="https://thegurumedia.in/img/editing.jpg"/>
+       </div>
+       <h3 class="text-xl font-bold mb-2">
+        Video &amp; Thumbnails
+       </h3>
+       <p class="mb-4">
+        We craft scroll-stopping visuals that drive clicks, boost engagement, and ensure your content stands out.
+       </p>
+       <ul class="space-y-2">
+        <li>
+         <div class="animated-icon">
+          <svg class="gradient-icon" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <circle cx="12" cy="12" r="10">
+           </circle>
+           <line x1="2" x2="22" y1="12" y2="12">
+           </line>
+           <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+           </path>
+          </svg>
+         </div>
+         Eye-Catching Visuals
+        </li>
+        <li>
+         <div class="animated-icon">
+          <svg class="gradient-icon" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+           </path>
+          </svg>
+         </div>
+         High Engagement Rates
+        </li>
+        <li>
+         <div class="animated-icon">
+          <svg class="gradient-icon" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <rect height="18" rx="2" ry="2" width="18" x="3" y="3">
+           </rect>
+           <line x1="3" x2="21" y1="9" y2="9">
+           </line>
+           <line x1="9" x2="9" y1="21" y2="9">
+           </line>
+          </svg>
+         </div>
+         Platform-Specific Designs
+        </li>
+       </ul>
+      </div>
+      <div class="bg-white/50 p-6 rounded-lg hover:shadow-xl transition-shadow">
+       <div class="w-full h-48 mb-4 rounded-md overflow-hidden">
+        <img alt="App &amp; Web Development showing a developer coding on laptop with website wireframes" class="w-full h-full object-cover" src="https://thegurumedia.in/img/webdevelopment.jpg"/>
+       </div>
+       <h3 class="text-xl font-bold mb-2">
+        App &amp; Web Development
+       </h3>
+       <p class="mb-4">
+        We build fast, future-ready websites and apps tailored to meet your brand’s short-term and long-term goals.
+       </p>
+       <ul class="space-y-2">
+        <li>
+         <div class="animated-icon">
+          <svg class="gradient-icon" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <polyline points="16 18 22 12 16 6">
+           </polyline>
+           <polyline points="8 6 2 12 8 18">
+           </polyline>
+          </svg>
+         </div>
+         Front &amp; Back End
+        </li>
+        <li>
+         <div class="animated-icon">
+          <svg class="gradient-icon" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0L12 2.69z">
+           </path>
+          </svg>
+         </div>
+         Full Design Support
+        </li>
+        <li>
+         <div class="animated-icon">
+          <svg class="gradient-icon" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <polyline points="22 12 18 12 15 21 9 3 6 12 2 12">
+           </polyline>
+          </svg>
+         </div>
+         API Integration
+        </li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section class="content-section text-center" id="why">
+    <div class="section-content">
+     <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+      WHY
+      <span class="shimmer">
+       INFOMEDIA
+      </span>
+     </h2>
+     <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div class="bg-white/50 p-6 rounded-lg hover:shadow-xl hover:-translate-y-2 transition-transform">
+       <p class="text-5xl font-bold text-blue-500" data-count="1500">
+        0
+       </p>
+       <p class="text-gray-700 mt-2">
+        Clients
+       </p>
+      </div>
+      <div class="bg-white/50 p-6 rounded-lg hover:shadow-xl hover:-translate-y-2 transition-transform">
+       <p class="text-5xl font-bold text-blue-500" data-count="2700">
+        0
+       </p>
+       <p class="text-gray-700 mt-2">
+        Projects Completed
+       </p>
+      </div>
+      <div class="bg-white/50 p-6 rounded-lg hover:shadow-xl hover:-translate-y-2 transition-transform">
+       <p class="text-5xl font-bold text-blue-500" data-count="50">
+        0
+       </p>
+       <p class="text-gray-700 mt-2">
+        Top Brands
+       </p>
+      </div>
+      <div class="bg-white/50 p-6 rounded-lg hover:shadow-xl hover:-translate-y-2 transition-transform">
+       <p class="text-5xl font-bold text-blue-500" data-count="15">
+        0
+       </p>
+       <p class="text-gray-700 mt-2">
+        Countries Served
+       </p>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section class="content-section text-center">
+    <div class="section-content">
+     <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+      What Services InfoMedia Provide
+     </h2>
+     <p class="mt-4 text-gray-700 max-w-2xl mx-auto">
+      We provide 360° integrated solutions to our clients for scalability and business growth.
+     </p>
+     <div class="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+      <div class="bg-white/50 p-4 rounded-lg hover:shadow-lg transition-shadow group flex items-center gap-4">
+       <div class="animated-icon">
+        <svg class="gradient-icon" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+         <polygon points="23 7 16 12 23 17 23 7">
+         </polygon>
+         <rect height="14" rx="2" ry="2" width="15" x="1" y="5">
+         </rect>
+        </svg>
+       </div>
+       <div>
+        <h3 class="font-bold">
+         Video Editing
+        </h3>
+        <p>
+         We provide professional video editing services.
+        </p>
+       </div>
+      </div>
+      <div class="bg-white/50 p-4 rounded-lg hover:shadow-lg transition-shadow group flex items-center gap-4">
+       <div class="animated-icon">
+        <svg class="gradient-icon" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+         <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0L12 2.69z">
+         </path>
+        </svg>
+       </div>
+       <div>
+        <h3 class="font-bold">
+         Branding &amp; Creative
+        </h3>
+        <p>
+         Our creative team helps craft your brand's USP.
+        </p>
+       </div>
+      </div>
+      <div class="bg-white/50 p-4 rounded-lg hover:shadow-lg transition-shadow group flex items-center gap-4">
+       <div class="animated-icon">
+        <svg class="gradient-icon" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+         <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2">
+         </path>
+         <circle cx="8.5" cy="7" r="4">
+         </circle>
+         <line x1="20" x2="20" y1="8" y2="14">
+         </line>
+         <line x1="23" x2="17" y1="11" y2="11">
+         </line>
+        </svg>
+       </div>
+       <div>
+        <h3 class="font-bold">
+         Brand Promotions
+        </h3>
+        <p>
+         We connect top brands with creators.
+        </p>
+       </div>
+      </div>
+      <div class="bg-white/50 p-4 rounded-lg hover:shadow-lg transition-shadow group flex items-center gap-4">
+       <div class="animated-icon">
+        <svg class="gradient-icon" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+         <polyline points="16 18 22 12 16 6">
+         </polyline>
+         <polyline points="8 6 2 12 8 18">
+         </polyline>
+        </svg>
+       </div>
+       <div>
+        <h3 class="font-bold">
+         App &amp; Web Development
+        </h3>
+        <p>
+         We design and develop custom apps and websites.
+        </p>
+       </div>
+      </div>
+      <div class="bg-white/50 p-4 rounded-lg hover:shadow-lg transition-shadow group flex items-center gap-4">
+       <div class="animated-icon">
+        <svg class="gradient-icon" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+         <rect height="18" rx="2" ry="2" width="18" x="3" y="3">
+         </rect>
+         <line x1="3" x2="21" y1="9" y2="9">
+         </line>
+         <line x1="9" x2="9" y1="21" y2="9">
+         </line>
+        </svg>
+       </div>
+       <div>
+        <h3 class="font-bold">
+         Thumbnail Creations
+        </h3>
+        <p>
+         We design eye-catching thumbnails that boost clicks.
+        </p>
+       </div>
+      </div>
+      <div class="bg-white/50 p-4 rounded-lg hover:shadow-lg transition-shadow group flex items-center gap-4">
+       <div class="animated-icon">
+        <svg class="gradient-icon" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+         <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z">
+         </path>
+         <path d="M19 10v2a7 7 0 0 1-14 0v-2">
+         </path>
+         <line x1="12" x2="12" y1="19" y2="23">
+         </line>
+         <line x1="8" x2="16" y1="23" y2="23">
+         </line>
+        </svg>
+       </div>
+       <div>
+        <h3 class="font-bold">
+         VoiceOver Work
+        </h3>
+        <p>
+         We deliver high-quality voiceovers in multiple tones.
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section class="content-section text-center" id="about">
+    <div class="section-content">
+     <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div class="bg-white/50 p-6 rounded-lg hover:shadow-xl transition-shadow text-center">
+       <img alt="Vishnu, CEO/Founder portrait with friendly smile and casual attire" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-md object-cover" src="https://thegurumedia.in/img/CEO.jpg"/>
+       <h3 class="text-2xl font-bold">
+        HAY! I'M VISHNU
+       </h3>
+       <p class="text-blue-500 font-semibold mt-1">
+        CEO/Founder &amp; INFLUENCER
+       </p>
+       <p class="mt-4 text-gray-700 text-left">
+        At InfoMedia, we focus on building creative solutions not just for brands but also for creators. With my personal experience as a content creator, I understand what it takes to stand out in the digital world.
+       </p>
+      </div>
+      <div class="bg-white/50 p-6 rounded-lg hover:shadow-xl transition-shadow text-center">
+       <img alt="Ayush, Co-Founder portrait with confident smile and professional attire" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-md object-cover" src="https://thegurumedia.in/img/Ayush%20co%20founder.PNG"/>
+       <h3 class="text-2xl font-bold">
+        HAY! I'M AYUSH
+       </h3>
+       <p class="text-blue-500 font-semibold mt-1">
+        Co-Founder &amp; Marketing Executive
+       </p>
+       <p class="mt-4 text-gray-700 text-left">
+        At InfoMedia, I’m responsible for driving brand visibility, building strategic partnerships, and executing impactful marketing campaigns. I work closely with creators, brands, and our internal team to ensure every campaign delivers results.
+       </p>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section class="content-section text-center">
+    <div class="section-content">
+     <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+      Brands We Work With
+     </h2>
+     <p class="mt-4 text-gray-700">
+      We have been successfully helping businesses across the globe establish a digital footprint.
+     </p>
+     <div class="mt-8 marquee">
+      <div class="marquee-content">
+       <img alt="Dream11 brand logo, stylized text with red and white colors" class="brand-logo" src="https://thegurumedia.in/img/Dream11_logo.svg.png"/>
+       <img alt="Winzo brand logo, colorful text with playful style" class="brand-logo" src="https://thegurumedia.in/img/winzo.png"/>
+       <img alt="1win brand logo, bold text with red and white colors" class="brand-logo" src="https://thegurumedia.in/img/1win.png"/>
+       <img alt="Probo brand logo, blue and white text with icon" class="brand-logo" src="https://thegurumedia.in/img/probo-logo.png"/>
+       <img alt="Duolingo brand logo, green owl mascot" class="brand-logo" src="https://thegurumedia.in/img/Duolingo_mascot_logo.png"/>
+       <img alt="Mostbet brand logo, yellow and black text" class="brand-logo" src="https://thegurumedia.in/img/mostbet-logo.png"/>
+       <img alt="Dream11 brand logo, stylized text with red and white colors" class="brand-logo" src="https://thegurumedia.in/img/Dream11_logo.svg.png"/>
+       <img alt="Winzo brand logo, colorful text with playful style" class="brand-logo" src="https://thegurumedia.in/img/winzo.png"/>
+       <img alt="1win brand logo, bold text with red and white colors" class="brand-logo" src="https://thegurumedia.in/img/1win.png"/>
+       <img alt="Probo brand logo, blue and white text with icon" class="brand-logo" src="https://thegurumedia.in/img/probo-logo.png"/>
+       <img alt="Duolingo brand logo, green owl mascot" class="brand-logo" src="https://thegurumedia.in/img/Duolingo_mascot_logo.png"/>
+       <img alt="Mostbet brand logo, yellow and black text" class="brand-logo" src="https://thegurumedia.in/img/mostbet-logo.png"/>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section class="content-section text-center" id="contact">
+    <div class="section-content">
+     <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+      Contact Us
+     </h2>
+     <div class="my-6 text-gray-700">
+      <p>
+       51/7 Padam Nagar Sarai Rohilla, Old Rohtak road, Near SBI Branch, North Delhi, Delhi,110007
+      </p>
+      <p>
+       info@gurumedia.com
+      </p>
+      <p>
+       +91 7668991470
+      </p>
+     </div>
+     <h3 class="text-2xl font-bold text-gray-900">
+      Get in Touch
+     </h3>
+     <p class="mb-6 text-gray-700">
+      Feel free to drop us a line below!
+     </p>
+     <form class="w-full max-w-lg mx-auto text-left" novalidate="">
+      <div class="flex flex-wrap -mx-3 mb-6">
+       <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <input aria-label="Name" class="w-full bg-gray-100 text-gray-900 rounded py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Name" required="" type="text"/>
+       </div>
+       <div class="w-full md:w-1/2 px-3">
+        <input aria-label="Email" class="w-full bg-gray-100 text-gray-900 rounded py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Email" required="" type="email"/>
+       </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-6">
+       <div class="w-full px-3">
+        <textarea aria-label="Your Message" class="w-full bg-gray-100 text-gray-900 rounded py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your Message..." required="" rows="4"></textarea>
+       </div>
+      </div>
+      <div class="text-center">
+       <button class="interactive-bounce px-8 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-400 transition-colors" type="submit">
+        Send
+       </button>
+      </div>
+     </form>
+    </div>
+   </section>
+   <footer class="bg-gray-800 text-white py-12 px-4">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+     <div>
+      <h3 class="text-2xl font-bold">
+       THE INFOMEDIA
+      </h3>
+      <p class="mt-4 text-gray-400">
+       ● BRAND MARKETING ● SOCIAL MEDIA MARKETING ● VIDEO AND GRAPHIC CREATIVES ● APP &amp; WEB DEVELOPMENT
+      </p>
+     </div>
+     <div>
+      <h4 class="font-bold text-lg">
+       Quick Links
+      </h4>
+      <ul class="mt-4 space-y-2">
+       <li>
+        <a class="text-gray-400 hover:text-white interactive-bounce" href="#services">
+         Services
+        </a>
+       </li>
+       <li>
+        <a class="text-gray-400 hover:text-white interactive-bounce" href="#about">
+         About
+        </a>
+       </li>
+       <li>
+        <a class="text-gray-400 hover:text-white interactive-bounce" href="#why">
+         Why Us?
+        </a>
+       </li>
+       <li>
+        <a class="text-gray-400 hover:text-white interactive-bounce" href="#contact">
+         Contact us
+        </a>
+       </li>
+      </ul>
+     </div>
+     <div>
+      <h4 class="font-bold text-lg">
+       Connect With Us
+      </h4>
+      <div class="flex justify-center md:justify-start gap-4 mt-4">
+       <a aria-label="Facebook" class="bg-gray-700 hover:bg-blue-500 text-white p-3 rounded-full transition-colors interactive-bounce" href="#">
+        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
+         <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z">
+         </path>
+        </svg>
+       </a>
+       <a aria-label="Twitter" class="bg-gray-700 hover:bg-blue-400 text-white p-3 rounded-full transition-colors interactive-bounce" href="#">
+        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
+         <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+         </path>
+        </svg>
+       </a>
+       <a aria-label="Instagram" class="bg-gray-700 hover:bg-pink-500 text-white p-3 rounded-full transition-colors interactive-bounce" href="#">
+        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
+         <rect height="20" rx="5" ry="5" width="20" x="2" y="2">
+         </rect>
+         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z">
+         </path>
+         <line x1="17.5" x2="17.51" y1="6.5" y2="6.5">
+         </line>
+        </svg>
+       </a>
+      </div>
+     </div>
+    </div>
+    <div class="mt-8 border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
+     <p>
+      © 2024 InfoMedia. All Rights Reserved.
+     </p>
+    </div>
+   </footer>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js">
+  </script>
+  <script type="module">
+   let scene, camera, renderer, blob, lights, torusKnot, floatingGroup, particles;
+        const mouse = new THREE.Vector2();
+
+        const colorPalette = [
+            { c1: new THREE.Color('#ff8a00'), c2: new THREE.Color('#e52e71') },
+            { c1: new THREE.Color('#00c6ff'), c2: new THREE.Color('#0072ff') },
+            { c1: new THREE.Color('#7f00ff'), c2: new THREE.Color('#e100ff') },
+            { c1: new THREE.Color('#24fe41'), c2: new THREE.Color('#00c6ff') }
+        ];
+
+        function runSplashScreen() {
+            const canvas = document.getElementById('splash-canvas');
+            const ctx = canvas.getContext('2d');
+            const W = canvas.width;
+            const H = canvas.height;
+            const pixelSize = 4;
+
+            const hiddenCanvas = document.createElement('canvas');
+            hiddenCanvas.width = W;
+            hiddenCanvas.height = H;
+            const hiddenCtx = hiddenCanvas.getContext('2d');
+            hiddenCtx.fillStyle = '#1a202c';
+            hiddenCtx.font = 'bold 100px Inter';
+            hiddenCtx.textAlign = 'center';
+            hiddenCtx.textBaseline = 'middle';
+            hiddenCtx.fillText('IM', W / 2, H / 2);
+
+            const imageData = hiddenCtx.getImageData(0, 0, W, H);
+            const pixels = [];
+
+            for (let y = 0; y < H; y += pixelSize) {
+                for (let x = 0; x < W; x += pixelSize) {
+                    const alpha = imageData.data[(y * W + x) * 4 + 3];
+                    if (alpha > 0) {
+                        pixels.push({ x, y });
+                    }
+                }
+            }
+
+            for (let i = pixels.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pixels[i], pixels[j]] = [pixels[j], pixels[i]];
+            }
+
+            let drawnPixels = 0;
+            const totalPixels = pixels.length;
+            const animationDuration = 2000;
+            const pixelsPerFrame = Math.ceil(totalPixels / (animationDuration / (1000 / 60)));
+
+            return new Promise(resolve => {
+                function animateSplash() {
+                    if (drawnPixels >= totalPixels) {
+                        setTimeout(resolve, 500);
+                        return;
+                    }
+                    ctx.fillStyle = '#1a202c';
+                    const limit = Math.min(drawnPixels + pixelsPerFrame, totalPixels);
+                    for (let i = drawnPixels; i < limit; i++) {
+                        ctx.fillRect(pixels[i].x, pixels[i].y, pixelSize, pixelSize);
+                    }
+                    drawnPixels = limit;
+                    requestAnimationFrame(animateSplash);
+                }
+                animateSplash();
+            });
+        }
+
+        async function init() {
+            await runSplashScreen();
+
+            const splashScreen = document.getElementById('splash-screen');
+            const content = document.getElementById('content');
+            const bgCanvas = document.getElementById('bg-canvas');
+            const navbar = document.getElementById('navbar');
+
+            splashScreen.style.opacity = 0;
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+            }, 1000);
+
+            content.style.opacity = 1;
+            bgCanvas.style.opacity = 1;
+            navbar.style.opacity = 1;
+
+            scene = new THREE.Scene();
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            renderer = new THREE.WebGLRenderer({ canvas: bgCanvas, antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            lights = {
+                ambient: new THREE.AmbientLight(0xffffff, 0.5),
+                point1: new THREE.PointLight(0xff8a00, 1, 20),
+                point2: new THREE.PointLight(0x0072ff, 1, 20)
+            };
+            lights.point1.position.set(-5, 3, 5);
+            lights.point2.position.set(5, -3, 5);
+            scene.add(lights.ambient, lights.point1, lights.point2);
+
+            const geometry = new THREE.IcosahedronGeometry(1.5, 64);
+            const material = new THREE.ShaderMaterial({
+                vertexShader: `
+                    uniform float u_time;
+                    uniform float u_intensity;
+                    varying vec3 v_normal;
+                    vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+                    vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+                    vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
+                    vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+                    float snoise(vec3 v) {
+                        const vec2 C = vec2(1.0/6.0, 1.0/3.0);
+                        const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+                        vec3 i = floor(v + dot(v, C.yyy));
+                        vec3 x0 = v - i + dot(i, C.xxx);
+                        vec3 g = step(x0.yzx, x0.xyz);
+                        vec3 l = 1.0 - g;
+                        vec3 i1 = min(g.xyz, l.zxy);
+                        vec3 i2 = max(g.xyz, l.zxy);
+                        vec3 x1 = x0 - i1 + C.xxx;
+                        vec3 x2 = x0 - i2 + C.yyy;
+                        vec3 x3 = x0 - D.yyy;
+                        i = mod289(i);
+                        vec4 p = permute(permute(permute(
+                            i.z + vec4(0.0, i1.z, i2.z, 1.0))
+                            + i.y + vec4(0.0, i1.y, i2.y, 1.0))
+                            + i.x + vec4(0.0, i1.x, i2.x, 1.0));
+                        float n_ = 0.142857142857;
+                        vec3 ns = n_ * D.wyz - D.xzx;
+                        vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+                        vec4 x_ = floor(j * ns.z);
+                        vec4 y_ = floor(j - 7.0 * x_);
+                        vec4 x = x_ * ns.x + ns.yyyy;
+                        vec4 y = y_ * ns.x + ns.yyyy;
+                        vec4 h = 1.0 - abs(x) - abs(y);
+                        vec4 b0 = vec4(x.xy, y.xy);
+                        vec4 b1 = vec4(x.zw, y.zw);
+                        vec4 s0 = floor(b0) * 2.0 + 1.0;
+                        vec4 s1 = floor(b1) * 2.0 + 1.0;
+                        vec4 sh = -step(h, vec4(0.0));
+                        vec4 a0 = b0.xzyw + s0.xzyw * sh.xxyy;
+                        vec4 a1 = b1.xzyw + s1.xzyw * sh.zzww;
+                        vec3 p0 = vec3(a0.xy, h.x);
+                        vec3 p1 = vec3(a0.zw, h.y);
+                        vec3 p2 = vec3(a1.xy, h.z);
+                        vec3 p3 = vec3(a1.zw, h.w);
+                        vec4 norm = taylorInvSqrt(vec4(dot(p0, p0), dot(p1, p1), dot(p2, p2), dot(p3, p3)));
+                        p0 *= norm.x;
+                        p1 *= norm.y;
+                        p2 *= norm.z;
+                        p3 *= norm.w;
+                        vec4 m = max(0.6 - vec4(dot(x0, x0), dot(x1, x1), dot(x2, x2), dot(x3, x3)), 0.0);
+                        m = m * m;
+                        return 42.0 * dot(m * m, vec4(dot(p0, x0), dot(p1, x1), dot(p2, x2), dot(p3, x3)));
+                    }
+                    void main() {
+                        v_normal = normal;
+                        float distortion = snoise(normal * u_intensity + u_time * 0.1) * 0.5;
+                        vec3 newPosition = position + normal * distortion;
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    uniform float u_time;
+                    uniform vec3 u_color1;
+                    uniform vec3 u_color2;
+                    varying vec3 v_normal;
+                    void main() {
+                        float intensity = 1.0 - dot(v_normal, vec3(0.0, 0.0, 1.0));
+                        vec3 color = mix(u_color1, u_color2, intensity);
+                        gl_FragColor = vec4(color, 1.0);
+                    }
+                `,
+                uniforms: {
+                    u_time: { value: 0 },
+                    u_intensity: { value: 1.5 },
+                    u_color1: { value: colorPalette[0].c1 },
+                    u_color2: { value: colorPalette[0].c2 },
+                }
+            });
+            blob = new THREE.Mesh(geometry, material);
+            scene.add(blob);
+
+            const torusKnotGeo = new THREE.TorusKnotGeometry(3, 0.1, 100, 16);
+            const torusKnotMat = new THREE.MeshNormalMaterial();
+            torusKnot = new THREE.Mesh(torusKnotGeo, torusKnotMat);
+            scene.add(torusKnot);
+
+            floatingGroup = new THREE.Group();
+            const floatGeo = new THREE.TetrahedronGeometry(0.2, 0);
+            const floatMat = new THREE.MeshStandardMaterial({ color: 0xcccccc, metalness: 0.1, roughness: 0.8 });
+            for (let i = 0; i < 20; i++) {
+                const floater = new THREE.Mesh(floatGeo, floatMat);
+                floater.position.set(
+                    (Math.random() - 0.5) * 10,
+                    (Math.random() - 0.5) * 10,
+                    (Math.random() - 0.5) * 10
+                );
+                floater.rotation.set(
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI
+                );
+                const scale = 0.5 + Math.random() * 1.5;
+                floater.scale.set(scale, scale, scale);
+                floater.userData.animSpeed = Math.random() * 0.5 + 0.1;
+                floater.userData.animPhase = Math.random() * Math.PI;
+                floatingGroup.add(floater);
+            }
+            scene.add(floatingGroup);
+
+            const particlesCount = 5000;
+            const positions = new Float32Array(particlesCount * 3);
+            for(let i = 0; i < particlesCount * 3; i++) {
+                positions[i] = (Math.random() - 0.5) * 20;
+            }
+            const particlesGeometry = new THREE.BufferGeometry();
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.02,
+                color: 0x000000,
+                transparent: true,
+                opacity: 0.5
+            });
+            particles = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particles);
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            document.querySelectorAll('.content-section').forEach((section) => {
+                gsap.from(section.querySelector('.section-content').children, {
+                    y: 50, opacity: 0, stagger: 0.15, duration: 1, ease: 'power3.out',
+                    scrollTrigger: { trigger: section, start: 'top 70%', toggleActions: 'play none none reverse' }
+                });
+            });
+
+            document.querySelectorAll('[data-count]').forEach(el => {
+                const target = +el.dataset.count;
+                gsap.to(el, {
+                    innerText: target,
+                    duration: 2,
+                    snap: { innerText: 1 },
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 80%',
+                        toggleActions: 'play none none none'
+                    }
+                });
+            });
+
+            animate();
+        }
+
+        const clock = new THREE.Clock();
+        function animate() {
+            const elapsedTime = clock.getElapsedTime();
+
+            if (blob) {
+                blob.material.uniforms.u_time.value = elapsedTime;
+                blob.rotation.y = elapsedTime * 0.1;
+                blob.rotation.x = elapsedTime * 0.1;
+                blob.material.uniforms.u_intensity.value = 1.5 + Math.sin(elapsedTime * 0.5) * 1.0;
+
+                const colorTime = (elapsedTime * 0.1) % colorPalette.length;
+                const colorIndex = Math.floor(colorTime);
+                const nextColorIndex = (colorIndex + 1) % colorPalette.length;
+                const lerpFactor = colorTime - colorIndex;
+
+                blob.material.uniforms.u_color1.value.lerpColors(colorPalette[colorIndex].c1, colorPalette[nextColorIndex].c1, lerpFactor);
+                blob.material.uniforms.u_color2.value.lerpColors(colorPalette[colorIndex].c2, colorPalette[nextColorIndex].c2, lerpFactor);
+            }
+            if (torusKnot) {
+                torusKnot.rotation.x = elapsedTime * 0.2;
+                torusKnot.rotation.y = elapsedTime * 0.2;
+            }
+            if (floatingGroup) {
+                floatingGroup.children.forEach(child => {
+                    child.rotation.x += 0.001 * child.userData.animSpeed;
+                    child.rotation.y += 0.002 * child.userData.animSpeed;
+                    child.position.y += Math.sin(elapsedTime * child.userData.animPhase) * 0.005;
+                });
+            }
+            const targetX = mouse.x * 5;
+            const targetY = mouse.y * 5;
+            lights.point1.position.x += (targetX - lights.point1.position.x) * 0.05;
+            lights.point1.position.y += (targetY - lights.point1.position.y) * 0.05;
+            lights.point2.position.x += (-targetX - lights.point2.position.x) * 0.05;
+            lights.point2.position.y += (-targetY - lights.point2.position.y) * 0.05;
+            if (particles) {
+                particles.rotation.y = -mouse.x * 0.1;
+                particles.rotation.x = mouse.y * 0.1;
+            }
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+
+        const cursor = document.querySelector('.cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+        });
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseover', () => cursor.classList.add('cursor-grow'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-grow'));
+        });
+
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        function onWindowResize() {
+            if (!camera || !renderer) return;
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        window.addEventListener('resize', onWindowResize, false);
+        init();
+  </script>
+ </body>
+</html>
