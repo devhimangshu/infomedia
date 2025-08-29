@@ -7,9 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f0f2f5; /* Initial light background */
@@ -95,7 +92,7 @@
         /* Custom Cursor with Trail */
         .cursor, .cursor-dot {
             position: fixed;
-            pointer-events: none;
+            pointer-events: none !important; /* Fix: Added !important to ensure this rule is always applied */
             z-index: 9999;
             transform: translate(-50%, -50%);
             border-radius: 50%;
@@ -326,6 +323,15 @@
         /* Magnetic button container */
         .magnetic-container {
             display: inline-block;
+        }
+
+        /* Fix for glitchy text input with custom cursor */
+        body.text-cursor-active {
+            cursor: auto;
+        }
+        body.text-cursor-active .cursor,
+        body.text-cursor-active .cursor-dot {
+            display: none !important;
         }
     </style>
 </head>
@@ -1033,9 +1039,17 @@
                 }
             }
         });
-        document.querySelectorAll('a, button, input, textarea, .hover-target').forEach(el => {
-            el.addEventListener('mouseover', () => cursor.classList.add('cursor-grow'));
+        
+        // Grow effect for links and buttons
+        document.querySelectorAll('a, button, .hover-target').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('cursor-grow'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-grow'));
+        });
+
+        // Restore default cursor for text inputs to fix glitchy writing
+        document.querySelectorAll('input, textarea').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('text-cursor-active'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('text-cursor-active'));
         });
 
         // Magnetic Button
@@ -1077,13 +1091,34 @@
             });
         });
 
-        // Contact Form Validation
+        // Contact Form submission to WhatsApp
         const form = document.getElementById('contact-form');
         const formStatus = document.getElementById('form-status');
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             if (form.checkValidity()) {
-                formStatus.textContent = 'Thank you! Your message has been sent.';
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+
+                // WhatsApp number (remove any non-digit characters)
+                const whatsappNumber = "917668991470";
+
+                // Construct the message
+                const whatsappMessage = `Hello Inflomedia,\n\nI'm contacting you from your website.\n\n*Name:* ${name}\n*Email:* ${email}\n\n*Message:*\n${message}`;
+
+                // Encode the message for the URL
+                const encodedMessage = encodeURIComponent(whatsappMessage);
+
+                // Create the WhatsApp URL
+                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+                
+                // Open WhatsApp in a new tab
+                window.open(whatsappUrl, '_blank');
+                
+                // Provide feedback to the user
+                formStatus.textContent = 'Redirecting to WhatsApp...';
                 formStatus.style.color = 'green';
                 form.reset();
             } else {
@@ -1106,14 +1141,6 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
 
 
 
